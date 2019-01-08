@@ -1,6 +1,12 @@
 require 'sinatra'
 require 'sinatra/reloader' if development?
 require './hangman'
+require 'securerandom'
+
+configure do
+    enable :sessions
+    set :session_secret, SecureRandom.hex(32)
+end  
 h = Hangman.new
 get '/' do
     unless params['reset'].nil?
